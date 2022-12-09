@@ -6,14 +6,21 @@ import React, { useState } from "react";
 function MediaResult({title, year, network,genres, ended, entryNum,imdbNumber}) {  //creates a link to the Detail page
   const detailsPage = "Details/"+imdbNumber
   return (
-    <div> 
-      <strong> <a href= {detailsPage}>{title} ({year.substring(0,4)}) </a></strong> 
-      <ul>
-        <li>Network: {network}</li>
-        <li>Genres: {genres+" "} </li> 
-        <li>Ended: {ended}</li>      
-      </ul>
-      <br></br>
+    <div>
+      <div class="card border-light">
+        <a class="btn btn-primary bg-gradient" href={detailsPage}>
+          <div>
+            <strong>{title} ({year.substring(0,4)})</strong>
+          </div>
+        </a>        
+        <div class="card-body bg-secondary bg-gradient text-white rounded-bottom">
+          <ul>
+            <li>Network: {network}</li>
+            <li>Genres: {genres+" "} </li> 
+            <li>Ended: {ended}</li>      
+          </ul>
+        </div>
+      </div><br></br>
     </div>
   ); 
 }
@@ -52,7 +59,7 @@ function TitleSearch() {
   // if (success) return <Navigate to="/" />;
 
   return (
-    <div className="col-10 col-md-8 col-lg-7">
+    <div className="col-10 col-md-8 col-lg-7"><br></br>
       {/* {error && <ErrorAlert details={"Failed to save the content"} />} */}
       <form onSubmit={handleSubmit}>
         <div className="input-group">
