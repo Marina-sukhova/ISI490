@@ -27,7 +27,7 @@ function FormatResults({ title, year, network, genres, ended, imdbNumber, image,
               <span> &#11088;</span>{avg}
             </div>
           </div>
-          <div id="text" className="col" >
+          <div id="summary" className="col" >
           <h2>Summary</h2>
             {content2}
           </div>
@@ -210,14 +210,14 @@ const Details = () => {
 
       </div>
       <div>
+        <label for="text"></label>
+        <input type="text" id="text" placeholder="type your thoughts here..."></input>
+        <button className="btn btn-success" onClick={(commenter)}> Submit </button>
+      </div>
+      <div>
         {comments.map((words) => {
           return <ShowComments comment={words} />
         })}
-      </div>
-      <div>
-        <label for="text"></label>
-        <input type="text" id="text" placeholder="type yor thoughts here..."></input>
-        <button className="btn btn-success" onClick={(commenter)}> Submit </button>
       </div>
     </div >
   );
