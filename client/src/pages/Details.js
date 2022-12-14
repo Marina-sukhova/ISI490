@@ -13,43 +13,35 @@ function FormatResults({ title, year, network, genres, ended, imdbNumber, image,
   return (
 
     <div>
-
       <h1>{title} ({year}) </h1>
       <div className="container" >
-
         <div className="row">
           <div className="col">
             <img src={image} alt="pic" height="200" width="300" />
             <div>
-           <span> &#11088;</span>{avg}
+              <span> &#11088;</span>{avg}
             </div>
-            
-            </div>
-          
-      
-          <div className="col">
+          </div>
+          <div className="col" >
             {content2}
-
           </div>
         </div>
-        </div>
-
-      
+      </div>
     </div>
   )
 }
 
 
 
-function ShowComments(props) { 
-  
-     const {Content} = props.comment
-        return ( 
-            <div>  
-              {Content|| " none"}
-            </div>
-        )
-    }
+function ShowComments(props) {
+
+  const { Content } = props.comment
+  return (
+    <div>
+      {Content || " none"}
+    </div>
+  )
+}
 
 function getImdbString(id) {   //copies the imdb from the route
 
@@ -78,10 +70,10 @@ async function createMedia(id) {
 
 
 
- async function createRating(id, ratingValue) {
-  
-    
-  
+async function createRating(id, ratingValue) {
+
+
+
   return fetch("/api/media_/" + id + "/" + ratingValue, {
     method: 'POST',
     credentials: "include",
@@ -105,7 +97,7 @@ async function createComment(id, text) {
     credentials: "include",
     headers: {
       'Content-Type': 'application/json',
-    }, 
+    },
 
   })
     .then(response => {
@@ -113,50 +105,49 @@ async function createComment(id, text) {
     })
 
 };
-    async function stars(){
-   let val =0;
-   if(document.getElementById('rs1').checked){
+async function stars() {
+  let val = 0;
+  if (document.getElementById('rs1').checked) {
     val = document.getElementById('rs1').value
-   }
-   else if(document.getElementById('rs2').checked){
+  }
+  else if (document.getElementById('rs2').checked) {
     val = document.getElementById('rs2').value
-   }
-   else if(document.getElementById('rs3').checked){
+  }
+  else if (document.getElementById('rs3').checked) {
     val = document.getElementById('rs3').value
-   }
-   else if(document.getElementById('rs4').checked){
+  }
+  else if (document.getElementById('rs4').checked) {
     val = document.getElementById('rs4').value
-   }
-   else if(document.getElementById('rs5').checked){
+  }
+  else if (document.getElementById('rs5').checked) {
     val = document.getElementById('rs5').value
-   }
-
-     return val;
   }
 
+  return val;
+}
 
+async function getwords() {
+
+  return document.getElementById('text').value;
+}
 
 const Details = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [avg, setAvg] = useState([]);
   const [comments, setComments] = useState([])
-  const test = "uhfkwhcihicuiu"
   const { id } = useParams()
   const imdbID = getImdbString(id)
   console.log(imdbID);
- 
+
   useEffect(() => {
     async function createRecords() {  // wrapper to sync calls
-       await createMedia(imdbID);
-      console.log(stars);
-       await createComment(imdbID, test)
+      await createMedia(imdbID);
 
+      let response1 = await fetch("/api/media_/ratings/avarage/" + imdbID)
+      let results1 = await response1.json();
+      setAvg(results1);
 
-       let response1 = await fetch("/api/media_/ratings/avarage/" + imdbID)
-       let results1 = await response1.json();
-       setAvg(results1);
-
-      let response2 = await fetch("/api/media_/comment/"+ imdbID )
+      let response2 = await fetch("/api/media_/comment/" + imdbID)
       let results2 = await response2.json();
       setComments(results2)
     }
@@ -166,12 +157,17 @@ const Details = () => {
   }, [imdbID]);
 
 
-     const rater = async()=>{
-        const st = await stars()
-         await createRating(imdbID,st)
-   }
-  // put creatingRating in event
-
+  const rater = async () => {
+    const star = await stars()
+    await createRating(imdbID, star)
+    window.location.reload()
+  }
+  const commenter = async () => {
+    const words = await getwords()
+    await createComment(imdbID, words)
+    window.location.reload()
+  }
+ 
   useEffect(() => {
     async function getData() {
 
@@ -179,29 +175,20 @@ const Details = () => {
       let results = await response.json();
       setSearchResults(results)
     }
-
     getData();
+    return () => {};
 
-    return () => {
+  }, [imdbID]);
 
-    };
-
-  },[imdbID]);
- 
   return (
-
-
     <div>
-
       <FormatResults
         title={searchResults.name}
         year={searchResults.premiered}
         avg={avg.avgRating}
         image={searchResults?.image?.medium || "none"}
-
         plot={searchResults.summary}
       //   key = {data.show.externals.imdb}
-
       />
       <div class="rating-stars">
         <input type="radio" name="rating" id="rs0" checked /><label for="rs0"></label>
@@ -210,24 +197,22 @@ const Details = () => {
         <input type="radio" name="rating" id="rs3" value='3' /><label for="rs3"></label>
         <input type="radio" name="rating" id="rs4" value='4' /><label for="rs4"></label>
         <input type="radio" name="rating" id="rs5" value='5' /><label for="rs5"></label>
-       <button className="btn btn-success"  onClick={(rater)}> Submit </button>
+        <button className="btn btn-success" onClick={(rater)}> Submit </button>
         <span class="rating-counter"></span>
 
       </div>
       <div>
-      {comments.map((words) => {
-        return <ShowComments comment={words} />
-
-      })}
-    </div>
-   
-	
-
-      
+        {comments.map((words) => {
+          return <ShowComments comment={words} />
+        })}
+      </div>
+      <div>
+        <label for="text"></label>
+        <input type="text" id="text" placeholder="type yor thoughts here..."></input>
+        <button className="btn btn-success" onClick={(commenter)}> Submit </button>
+      </div>
     </div >
   );
-
-
 }
 
 export default Details;
