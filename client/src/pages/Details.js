@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import "../details.css";
@@ -20,11 +20,11 @@ function FormatResults({ title, year, network, genres, ended, imdbNumber, image,
       <header><h1><b>{title} ({y1} - {e2})</b></h1></header>
       <div className="container" >
         <div className="row">
-          <div className="col">
-            <img src={image} alt="pic" />
+          <div id="image-block"className="col">
+            <img id = "image" src={image} alt="pic" />
             <div id="avg">
             {genres+" "}
-              <span> &#11088;</span>{avg}
+              <span id ="avg-star">  &#11088;</span>{avg}
             </div>
           </div>
           <div id="summary" className="col" >
@@ -145,6 +145,7 @@ const Details = () => {
   const imdbID = getImdbString(id)
   console.log(imdbID);
 
+ 
   useEffect(() => {
     async function createRecords() {  // wrapper to sync calls
       await createMedia(imdbID);
@@ -198,24 +199,31 @@ const Details = () => {
         genres = {searchResults.genres} 
       //   key = {data.show.externals.imdb}
       />
-      <div class="rating-stars">
-        <input type="radio" name="rating" id="rs0" checked /><label for="rs0"></label>
-        <input type="radio" name="rating" id="rs1" value='1' /><label for="rs1"></label>
-        <input type="radio" name="rating" id="rs2" value='2' /><label for="rs2"></label>
-        <input type="radio" name="rating" id="rs3" value='3' /><label for="rs3"></label>
-        <input type="radio" name="rating" id="rs4" value='4' /><label for="rs4"></label>
-        <input type="radio" name="rating" id="rs5" value='5' /><label for="rs5"></label>
-        <button className="btn btn-success" onClick={(rater)}> Submit </button>
-        <span class="rating-counter"></span>
+      <div id="rate-block">
+        <div class="rating-stars">
+          <div id="the-stars">
+          <input type="radio" name="rating" id="rs0" checked /><label for="rs0"></label>
+          <input type="radio" name="rating" id="rs1" value='1' /><label for="rs1"></label>
+          <input type="radio" name="rating" id="rs2" value='2' /><label for="rs2"></label>
+          <input type="radio" name="rating" id="rs3" value='3' /><label for="rs3"></label>
+          <input type="radio" name="rating" id="rs4" value='4' /><label for="rs4"></label>
+          <input type="radio" name="rating" id="rs5" value='5' /><label for="rs5"></label> 
+          </div>
+        
+        </div>
+       <div id="rate-button">
+          <button  id="r-button"className="btn btn-success" onClick={(rater)}> Submit </button>
+        </div>
+      </div>
 
-      </div>
-      <div>
-        <label for="text"></label>
+      <div id="comment-block">
+        <label  for="text"></label>
         <input type="text" id="text" placeholder="type your thoughts here..."></input>
-        <button className="btn btn-success" onClick={(commenter)}> Submit </button>
+        <button id="comment-button" className="btn btn-success" onClick={(commenter)}> Submit </button>
       </div>
       <div>
-        {comments.map((words) => {
+       
+        {comments.reverse().map((words) => {
           return <ShowComments comment={words} />
         })}
       </div>
