@@ -5,7 +5,7 @@ function AboutUsPage(props) {
   return (
     <>
       <div className="col text-center">
-        <h1 className="mb-3">Our Team</h1><br />
+        <h1 className="mb-3">RREM</h1><br />
         <div className="row">
 
           <div className="card border-0 col-lg-3">

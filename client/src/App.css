@@ -1,1 +1,16 @@
-/* Add custom CSS here */
+footer{
+    background-color:  rgb(20, 11, 53);
+    text-align: center;
+    color: whitesmoke;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  #content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+  }
