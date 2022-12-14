@@ -32,7 +32,10 @@ function Navigation(props) {
           </li>
         </ul>
       </div>
-      <AuthButton />
+      <div className="mb-3">
+        <AuthButton />
+      </div>
+      
     </nav>
   );
 }
@@ -43,21 +46,21 @@ function App() {
    <div id="page-container">
     <div id="content-wrap">
     <AuthProvider>
-      <BrowserRouter>
-        <Navigation />
-        <div className="container-xl text-center">
-          <div className="row justify-content-center">
-            <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/posts/new" element={<PostsListPage />} />
-              <Route path="/posts/:id" element={<ShowPostPage />} />
-              <Route path="/about-us" element={<AboutUsPage />} />
-              <Route path="/" element={<TitleSearch />} />
-              <Route path="/details/:id" element={<Details />} />
-            </Routes>
-          </div>
+    <BrowserRouter>
+      <Navigation />
+      <div className="container-xl text-center">
+        <div className="row justify-content-center">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/posts/new" element={<PostsListPage />} />
+            <Route path="/posts/:id" element={<ShowPostPage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/" element={<TitleSearch />} />
+            <Route path="/details/:id" element={<Details />} />
+          </Routes>
         </div>
-      </BrowserRouter>
+      </div>
+    </BrowserRouter>
     </AuthProvider>
     <br></br>
     </div>

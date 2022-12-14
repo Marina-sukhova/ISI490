@@ -1,19 +1,17 @@
-// import { response } from "express";
 import React, { useState } from "react";
-// import { Navigate } from "react-router-dom";
-// import ErrorAlert from "../components/ErrorAlert";
+import "../titlesearch.css"
 
 function MediaResult({title, year, network,genres, ended, entryNum,imdbNumber}) {  //creates a link to the Detail page
   const detailsPage = "Details/"+imdbNumber
   return (
     <div>
-      <div class="card border-light">
-        <a class="btn btn-primary bg-gradient" href={detailsPage}>
+      <div class="card border-0">
+        <a class="btn btn-primary btn-rounded-top bg-gradient" href={detailsPage}>
           <div>
             <strong>{title} ({year.substring(0,4)})</strong>
           </div>
         </a>        
-        <div class="card-body bg-secondary bg-gradient text-white rounded-bottom">
+        <div class="card-body card-search bg-gradient text-white rounded-bottom">
           <ul>
             <li>Network: {network}</li>
             <li>Genres: {genres+" "} </li> 
@@ -28,9 +26,6 @@ function MediaResult({title, year, network,genres, ended, entryNum,imdbNumber}) 
 function TitleSearch() {
   const [content, setContent] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  
-  // const [success, setSuccess] = useState(false);
-  // const [error, setError] = useState(false);
 
   const handleContentChange = (event) => {
     setContent(document.getElementById('input').value);
@@ -42,25 +37,16 @@ function TitleSearch() {
       let showResponse = await fetch("https://api.tvmaze.com/search/shows?q=" + content)
       let showResults = await showResponse.json();
       setSearchResults(showResults);   
-      console.log(showResults);
-      // if (response.ok) {
-      //   setSuccess(true);
-      // } else {
-      //   setError(true);
-      // }
+      console.log(showResults);      
       
     } catch (error) {
       console.error("Server error while creating a new micro post", error);
       setSearchResults([]);
-      // setError(true);
     }    
-  };
-
-  // if (success) return <Navigate to="/" />;
+  };  
 
   return (
-    <div className="col-10 col-md-8 col-lg-7"><br></br>
-      {/* {error && <ErrorAlert details={"Failed to save the content"} />} */}
+    <div className="col-10 col-md-8 col-lg-7 background"><br></br>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <input
@@ -74,8 +60,8 @@ function TitleSearch() {
           />
           <button type="submit" className="btn btn-primary">
             Search
-          </button>
-        </div>
+          </button><br></br>          
+        </div>        
         <div><br></br>
           
         {searchResults.map((data) => (

@@ -57,9 +57,14 @@ function AboutUsPage(props) {
           </div>
 
           
-        </div><br />       
+        </div><br /><br />       
         <h1 className="mb-3"> Our Purpose</h1>       
-        <p className="mb-3">We want to connect users to content by giving customized movie and TV series recommendations across multiple streaming services tailored to their favorite genres and interests. Users will be able to rate and comment on any content on our app and view others ratings to get an opinion about the quality of the content and whether it’s worth watching or not.</p>
+        <p className="mb-3">
+          We want to connect users to content by giving customized movie and TV series recommendations across multiple streaming services tailored 
+          to their favorite genres and interests. Users will be able to rate and comment on any content on our app and view others ratings to get an 
+          opinion about the quality of the content and whether it’s worth watching or not. Our app will eliminate the problem of having to search between
+          multiple streaming platforms and essentially streamline the user's search, combining titles from various media streaming services.
+        </p>
       </div>
     </>
   );
