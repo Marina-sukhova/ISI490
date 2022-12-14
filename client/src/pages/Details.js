@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -139,6 +139,7 @@ const Details = () => {
   const imdbID = getImdbString(id)
   console.log(imdbID);
 
+ 
   useEffect(() => {
     async function createRecords() {  // wrapper to sync calls
       await createMedia(imdbID);
