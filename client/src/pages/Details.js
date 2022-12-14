@@ -23,30 +23,18 @@ function FormatResults({ title, year, network, genres, ended, imdbNumber, image,
             <div>
            <span> &#11088;</span>{avg}
             </div>
-            <div>
-            <div  id="stars"class="rate">
-    <input type="radio" id="star1" name="rate" value="1" />
-    <label for="star1" title="text">1 star</label>
-    <input type="radio" id="star2" name="rate" value="2" />
-    <label for="star2" title="text">2 stars</label>
-    <input type="radio" id="star3" name="rate" value="3" />
-    <label for="star3" title="text">3 stars</label>
-    <input type="radio" id="star4" name="rate" value="4" />
-    <label for="star4" title="text">4 stars</label>
-    <input type="radio" id="star5" name="rate" value="5" />
-    <label for="star5" title="text">5 stars</label>
-       onClick({})
-  </div>
+            
             </div>
           
-          </div>
+      
           <div className="col">
             {content2}
 
           </div>
         </div>
+        </div>
 
-      </div>
+      
     </div>
   )
 }
@@ -89,8 +77,11 @@ async function createMedia(id) {
 };
 
 
-async function createRating(id, ratingValue) {
 
+ async function createRating(id, ratingValue) {
+  
+    
+  
   return fetch("/api/media_/" + id + "/" + ratingValue, {
     method: 'POST',
     credentials: "include",
@@ -107,7 +98,6 @@ async function createRating(id, ratingValue) {
 
     });
 };
-
 async function createComment(id, text) {
 
   return fetch("/api/media_/comments/for/" + id + "/" + text, {
@@ -123,7 +113,26 @@ async function createComment(id, text) {
     })
 
 };
+    async function stars(){
+   let val =0;
+   if(document.getElementById('rs1').checked){
+    val = document.getElementById('rs1').value
+   }
+   else if(document.getElementById('rs2').checked){
+    val = document.getElementById('rs2').value
+   }
+   else if(document.getElementById('rs3').checked){
+    val = document.getElementById('rs3').value
+   }
+   else if(document.getElementById('rs4').checked){
+    val = document.getElementById('rs4').value
+   }
+   else if(document.getElementById('rs5').checked){
+    val = document.getElementById('rs5').value
+   }
 
+     return val;
+  }
 
 
 
@@ -135,12 +144,12 @@ const Details = () => {
   const { id } = useParams()
   const imdbID = getImdbString(id)
   console.log(imdbID);
-
+ 
   useEffect(() => {
     async function createRecords() {  // wrapper to sync calls
        await createMedia(imdbID);
-       await createRating(imdbID, 5) // 
-      await createComment(imdbID, test)
+      console.log(stars);
+       await createComment(imdbID, test)
 
 
        let response1 = await fetch("/api/media_/ratings/avarage/" + imdbID)
@@ -157,6 +166,10 @@ const Details = () => {
   }, [imdbID]);
 
 
+     const rater = async()=>{
+        const st = await stars()
+         await createRating(imdbID,st)
+   }
   // put creatingRating in event
 
   useEffect(() => {
@@ -165,14 +178,6 @@ const Details = () => {
       let response = await fetch("https://api.tvmaze.com/lookup/shows?imdb=" + imdbID)
       let results = await response.json();
       setSearchResults(results)
-
-      // // let response1 = await fetch("/api/media_/ratings/avarage/" + imdbID)
-      // // let results1 = await response1.json();
-      // // setAvg(results1);
-
-      // let response2 = await fetch("/api/media_/comments/" + imdbID)
-      // let results2 = await response2.json();
-      // setComments(results2)
     }
 
     getData();
@@ -182,52 +187,44 @@ const Details = () => {
     };
 
   },[imdbID]);
-  // useEffect(() => {
-  //   async function getData1() {
-
-  //     let response2 = await fetch("/"+ imdbID )
-  //     let results2 = await response2.json();
-  //     setComments(results2)
-  //   }
-
-  //   getData1();
-
-   
-
-  // },[]);
+ 
   return (
 
 
     <div>
-       <div>
-    
 
-       </div>
       <FormatResults
         title={searchResults.name}
         year={searchResults.premiered}
         avg={avg.avgRating}
-       
-        //       comment = {comments}
-      
-        //   network = {(!data.show.network && "N/A") || data.show.network.name}
-        //   genres = { ((data.show.genres).length !== 0 && data.show.genres) || (data.show.genres && "N/A")} 
-        //   ended = {(!data.show.ended && "N/A") || data.show.ended}
-        //   imdbNumber = {searchResults.externals}
         image={searchResults?.image?.medium || "none"}
 
         plot={searchResults.summary}
       //   key = {data.show.externals.imdb}
 
-       /> <div>
-          {comments.map((words)=>{
-            return <ShowComments comment = {words}  />
+      />
+      <div class="rating-stars">
+        <input type="radio" name="rating" id="rs0" checked /><label for="rs0"></label>
+        <input type="radio" name="rating" id="rs1" value='1' /><label for="rs1"></label>
+        <input type="radio" name="rating" id="rs2" value='2' /><label for="rs2"></label>
+        <input type="radio" name="rating" id="rs3" value='3' /><label for="rs3"></label>
+        <input type="radio" name="rating" id="rs4" value='4' /><label for="rs4"></label>
+        <input type="radio" name="rating" id="rs5" value='5' /><label for="rs5"></label>
+       <button className="btn btn-success"  onClick={(rater)}> Submit </button>
+        <span class="rating-counter"></span>
 
-          })}
-       </div>
-        
-      
+      </div>
+      <div>
+      {comments.map((words) => {
+        return <ShowComments comment={words} />
+
+      })}
     </div>
+   
+	
+
+      
+    </div >
   );
 
 

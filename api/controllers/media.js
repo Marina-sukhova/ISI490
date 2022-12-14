@@ -64,15 +64,15 @@ router.post("/:imdb/:ratingValue", async (req, res) => { // create rating and up
    
   let total = 0;
   let avg = 0;
-
+ let counter = count;
   rows.forEach((nums) => {
     if(nums.RatingValue===0) //if not rated not counted
     {
-      count--;
+      counter--;
     }
     total += nums.RatingValue;
   });
-  avg = total / count;
+  avg = total / counter;
     
   await Media.update({ AvgRating: avg },
    { where: { MediaID: imdb }}
