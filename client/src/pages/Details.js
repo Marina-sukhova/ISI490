@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-
+import "../details.css";
 
 
 function FormatResults({ title, year, network, genres, ended, imdbNumber, image, plot, avg, comment }) {
@@ -10,19 +10,25 @@ function FormatResults({ title, year, network, genres, ended, imdbNumber, image,
   let content = JSON.stringify({ plot })
   let content1 = content.substring(12, content.length - 6)
   let content2 = content1.replace('<b>', '').replace('</b>', '').replace('<i>', '').replace('</i>', '').replace('<p>', '').replace('</p>', '')
+  let y = JSON.stringify({ year })
+  let y1 = y.substring(9,13)
+  let e = JSON.stringify({ ended })
+  let e2 = e.substring(10,14)
   return (
 
     <div>
-      <h1>{title} ({year}) </h1>
+      <header><h1><b>{title} ({y1} - {e2})</b></h1></header>
       <div className="container" >
         <div className="row">
           <div className="col">
-            <img src={image} alt="pic" height="200" width="300" />
-            <div>
+            <img src={image} alt="pic" />
+            <div id="avg">
+            {genres+" "}
               <span> &#11088;</span>{avg}
             </div>
           </div>
-          <div className="col" >
+          <div id="text" className="col" >
+          <h2>Summary</h2>
             {content2}
           </div>
         </div>
@@ -37,7 +43,7 @@ function ShowComments(props) {
 
   const { Content } = props.comment
   return (
-    <div>
+    <div id="comment">
       {Content || " none"}
     </div>
   )
@@ -186,8 +192,10 @@ const Details = () => {
         title={searchResults.name}
         year={searchResults.premiered}
         avg={avg.avgRating}
-        image={searchResults?.image?.medium || "none"}
+        image={searchResults?.image?.original || "none"}
+        ended={searchResults.ended}
         plot={searchResults.summary}
+        genres = {searchResults.genres} 
       //   key = {data.show.externals.imdb}
       />
       <div class="rating-stars">
