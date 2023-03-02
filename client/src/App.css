@@ -1,16 +1,89 @@
-footer{
-    background-color:  rgb(20, 11, 53);
-    text-align: center;
-    color: whitesmoke;
-    padding-top: 50px;
-    padding-bottom: 50px;
+footer {
+  opacity: 0.7;
+  background-color: #594b43;
+  text-align: center;
+  color: whitesmoke;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
-#page-container {
-    position: relative;
-    min-height: 100vh;
-  }
+body {
+  background-image: url("../public/background.png");
+
+}
+.navbar-expand-sm .navbar-nav {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* position: absolute; */
+}
+a.nav-link {
+  color: antiquewhite;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 30px;
+}
+
+li.nav-item {
+  height: 3em;
+  color: antiquewhite;
+  position:initial;
+  margin: 0.3em;
+  text-align: center;
+display: block;
+}
+li.nav-search {
+  width: 100%;
+  display: flex;
+  opacity: 0.3;
+  height: 4em;
+  width: 30em;
+  flex-direction: row;
+  align-content: space-around;
+  align-items: stretch;
+  justify-content: space-between;
+
+}
+
+
+.navbar-brand {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font: bold;
+  font-size: 30px;
+  color: antiquewhite;
+}
+.me-auto{
+  height: 10rem;
+  margin: 4em;
+}
+
+.mb-3 {
+  height: 10em;
   
-  #content-wrap {
-    padding-bottom: 2.5rem;    /* Footer height */
-  }
+}
+
+
+.btn.btn-primary{
+  border-radius: 10%;
+  background-color: #594b43;
+  color: antiquewhite;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #594b43;
+}
+
+.background:hover {
+  opacity: 0.7;
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;
+  /* Footer height */
+}

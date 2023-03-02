@@ -1,6 +1,6 @@
 body{
     position: relative;
-     background-color:rgb(30, 20, 66)
+     background-color:#594b43;
     }
     header{
         color: white;
@@ -32,14 +32,8 @@ body{
         width: 400px;
         height: 500px;
       }
-	
-    
-    
-     .background{
-        background-color: rgba(24, 26, 49, 1);
-        background-size: cover;
-     }
-    
+
+
      #text {
         color: whitesmoke;
         background-color: rgba(88, 92, 141, 0.7);
@@ -146,7 +140,7 @@ body{
     top: 0;
     right: 0;
     height: 100%;
-    border-radius: 0 5vmin 5vmin 0;
+
 	margin-top: 8px;
   
 	
@@ -179,7 +173,7 @@ label {
 	margin-top: 5%;
 	clip-path: polygon(50% 0%, 66% 32%, 100% 38%, 78% 64%, 83% 100%, 50% 83%, 17% 100%, 22% 64%, 0 38%, 34% 32%);
 	background: linear-gradient(90deg, yellow, orange 30% 50%, #184580
-50%, 70%, #173A75
+50%, 70%, #594b43
 100%);
 	background-size: 205% 100%;
 	background-position: 0 0;

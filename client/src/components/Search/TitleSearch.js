@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../titlesearch.css"
+
 
 function MediaResult({title, year, network,genres, ended, entryNum,imdbNumber}) {  //creates a link to the Detail page
   const detailsPage = "Details/"+imdbNumber
@@ -46,12 +46,11 @@ function TitleSearch() {
   };  
 
   return (
+    // поле поиска только
     <div className="col-10 col-md-8 col-lg-7 background"><br></br>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
-          <input
-            id = 'input'
-            type="text"
+          <input id = 'input' type="text"
             placeholder="Enter the title of a movie or TV show..."
             value={content}
             className="form-control"
